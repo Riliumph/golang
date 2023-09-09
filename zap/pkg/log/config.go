@@ -1,4 +1,4 @@
-package logger
+package log
 
 const (
 	KeyTime   = "time" // Match fluentd/fluentbit

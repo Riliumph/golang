@@ -1,4 +1,4 @@
-package logger
+package log
 
 import (
 	"go.uber.org/zap"
@@ -9,15 +9,14 @@ const (
 	details_obj = "details"
 )
 
-// Logger ログのクラス
+// Logger ロガークラス
 // zapのLoggerを委譲している。
-// 特に必要ないが、設定項目も保持している。
 type Logger struct {
 	logger *zap.Logger
 }
 
-// New Loggerのコンストラクタ
-func New(logger *zap.Logger) *Logger {
+// NewLogger Loggerのコンストラクタ
+func NewLogger(logger *zap.Logger) *Logger {
 	return &Logger{
 		logger: logger,
 	}
