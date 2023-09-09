@@ -1,15 +1,15 @@
 package main
 
 import (
-	l "how_to_zap/pkg/logger/applogger"
+	"how_to_zap/pkg/log/applog"
 
 	"go.uber.org/zap"
 )
 
 func main() {
-	l.App().With(zap.Any("request_id", "foobar"))
-	l.App().Debug("show parameter", zap.Any("param1", 1))
-	l.App().Info("show parameter", zap.Any("param1", 1))
-	l.App().Warn("show parameter", zap.Any("param1", 1))
-	l.App().Error("show parameter", zap.Any("param1", 1))
+	applog.AddItem(zap.Any("request_id", "foobar"))
+	applog.Debug("show parameter", zap.Any("param1", 1))
+	applog.Info("show parameter", zap.Any("param1", 1))
+	applog.Warn("show parameter", zap.Any("param1", 1))
+	applog.Error("show parameter", zap.Any("param1", 1))
 }

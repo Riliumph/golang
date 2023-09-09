@@ -1,4 +1,4 @@
-package logger
+package log
 
 import (
 	"testing"
@@ -9,7 +9,7 @@ import (
 
 func Test_Clone(t *testing.T) {
 	zapLogger, _ := zap.NewDevelopment()
-	logger := New(zapLogger)
+	logger := NewLogger(zapLogger)
 	newLogger := logger.Clone()
 	assert.NotEqual(t, &logger, &newLogger)
 }

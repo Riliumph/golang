@@ -1,38 +1,45 @@
 // applogger アプリログ用の名前空間
-package applogger
+package applog
 
 import (
 	"os"
 	"sync"
 
+	"how_to_zap/pkg/log"
+	"how_to_zap/pkg/log/lumberjack"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+)
 
-	"how_to_zap/pkg/logger"
-	"how_to_zap/pkg/logger/lumberjack"
+const (
+	// callerWrapNum ロガーが直接実行されるまでの関数コール数
+	callerSkipNum = 2
 )
 
 var (
-	app     *logger.Logger
-	appLock sync.Once
+	logger      *log.Logger
+	logLocker   sync.Once
+	logFilePath string
 )
 
 // init Go言語の特殊関数
 // モジュールロード時に自動的に実行される仕様を利用してSingletonを実現している。
 func init() {
-	appLock.Do(func() {
+	logFilePath = os.Getenv("LOG_DIR") + "app.log"
+	logLocker.Do(func() {
 		// make config
 		config := zap.Config{
-			Level:    zap.NewAtomicLevelAt(logger.GetLevel(os.Getenv("LOG_LEVEL"))),
+			Level:    zap.NewAtomicLevelAt(log.GetLevel(os.Getenv("LOG_LEVEL"))),
 			Encoding: "json",
 			EncoderConfig: zapcore.EncoderConfig{
 				// set default log item
-				TimeKey:       logger.KeyTime,
-				LevelKey:      logger.KeyLevel,
-				NameKey:       logger.KeyName,
-				CallerKey:     logger.KeyCaller,
-				MessageKey:    logger.KeyMsg,
-				StacktraceKey: logger.KeyTrace,
+				TimeKey:       log.KeyTime,
+				LevelKey:      log.KeyLevel,
+				NameKey:       log.KeyName,
+				CallerKey:     log.KeyCaller,
+				MessageKey:    log.KeyMsg,
+				StacktraceKey: log.KeyTrace,
 				// set log expression by encoder
 				EncodeLevel:    zapcore.CapitalLevelEncoder,   // Log level format: all text is upper case
 				EncodeTime:     zapcore.ISO8601TimeEncoder,    // Time format: ISO8601
@@ -46,7 +53,7 @@ func init() {
 		// make file sink
 		fileSink := zapcore.AddSync(
 			&lumberjack.Logger{
-				Filename:   os.Getenv("LOG_DIR") + "app.log",
+				Filename:   logFilePath,
 				MaxSize:    100, // megabytes
 				MaxBackups: 3,
 				MaxAge:     28, //days
@@ -62,7 +69,9 @@ func init() {
 
 		// set options
 		var options []zap.Option
-		options = append(options, zap.AddCallerSkip(1))
+		options = append(options, zap.AddCaller())
+		options = append(options, zap.AddCallerSkip(callerSkipNum))
+		options = append(options, zap.AddStacktrace(log.GetLevel("warn")))
 
 		// make core
 		core := zapcore.NewTee(
@@ -70,13 +79,13 @@ func init() {
 			consoleCore,
 		)
 
-		// make logger
-		instance := zap.New(core, options...)
-		app = logger.New(instance)
+		// make log
+		zapLogger := zap.New(core, options...)
+		logger = log.NewLogger(zapLogger)
 	})
 }
 
-// App アプリログのアクセサ
-func App() *logger.Logger {
-	return app
-}
+// Logger Loggerインスタンスのアクセサ
+// func Logger() *log.Logger {
+// 	return logger
+// }
