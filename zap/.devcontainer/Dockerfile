@@ -10,7 +10,7 @@ RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.l
 
 # hadolint for docker
 ARG HADOLINT_URL
-RUN wget --progress=dot:giga -O /usr/local/bin/hadolint ${HADOLINT_URL} --no-check-certificate \
+RUN wget -q -O /usr/local/bin/hadolint ${HADOLINT_URL} --no-check-certificate \
   && chmod +x /usr/local/bin/hadolint
 
 # Config for Go

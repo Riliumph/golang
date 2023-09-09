@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/cpp
 {
-	"name": "Go&Postgres",
+	"name": "Go",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
@@ -15,12 +15,12 @@
 	"workspaceFolder": "/workspace",
 	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
 	// Features to add to the dev container. More info: https://containers.dev/features.
-	"features": {
-		"docker-in-docker": {
-			"version": "latest",
-			"dockerDashComposeVersion": "v2"
-		}
-	},
+	// "features": {
+	// 	"docker-in-docker": {
+	// 		"version": "latest",
+	// 		"dockerDashComposeVersion": "v2"
+	// 	}
+	// },
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
