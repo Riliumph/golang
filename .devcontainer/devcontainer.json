@@ -12,15 +12,15 @@
 		"--hostname",
 		"dev-container"
 	],
-	"workspaceFolder": "/workspace",
-	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {
-	// 	"docker-in-docker": {
-	// 		"version": "latest",
-	// 		"dockerDashComposeVersion": "v2"
-	// 	}
-	// },
+	"workspaceFolder": "/${localWorkspaceFolderBasename}",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/${localWorkspaceFolderBasename},type=bind",
+	// Features to add to the dev container. More info: https: //containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "latest",
+			"dockerDashComposeVersion": "v2"
+		}
+	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
