@@ -1,0 +1,36 @@
+{
+    "[go]": {
+        "editor.formatOnSave": true,
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features",
+    },
+    "[markdown]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.markdownlint": true
+        },
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+        "files.trimTrailingWhitespace": false
+    },
+    "go.toolsManagement.autoUpdate": true,
+    "gopls": {
+        // === Officially supported Settings ===
+        // https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+        // If true, the completion engine is allowed to make suggestions for packages that you do not currently import.
+        "completeUnimported": true,
+        // If false, indicates that the user does not want documentation with completion results.
+        "completionDocumentation": true,
+        // If true, this turns on the ability to return completions from deep inside relevant entities, rather than just the locally accessible ones.
+        "deepCompletion": true,
+        // This controls the information that appears in the hover text.
+        "hoverKind": "SynopsisDocumentation",
+        // This controls where points documentation for given package in `textDocument/documentLink`.
+        "linkTarget": "pkg.go.dev",
+        // === Experimental Settings ===
+        // If true, it enables the use of the staticcheck.io analyzers.
+        // Warning: This will significantly increase memory usage.
+        "staticcheck": false,
+        // If true, then completion responses may contain placeholders for function parameters or struct fields.
+        "usePlaceholders": true
+    }
+}

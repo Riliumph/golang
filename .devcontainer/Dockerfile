@@ -5,6 +5,7 @@ RUN apt-get update \
   vim\
   peco\
   silversearcher-ag\
+  librdkafka-dev\
   && apt-get clean\
   && rm -rf /var/lib/apt/lists/*
 
