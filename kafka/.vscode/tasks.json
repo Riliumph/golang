@@ -1,0 +1,29 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "go",
+			"label": "build_producer",
+			"command": "build",
+			"args": [
+				"${workspaceFolder}/cmd/producer"
+			],
+			"problemMatcher": [
+				"$go"
+			],
+			"group": "build"
+		},
+		{
+			"type": "go",
+			"label": "build_consumer",
+			"command": "build",
+			"args": [
+				"${workspaceFolder}/cmd/consumer"
+			],
+			"problemMatcher": [
+				"$go"
+			],
+			"group": "build"
+		}
+	]
+}

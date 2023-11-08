@@ -5,10 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "kafka_publisher",
+            "name": "producer",
             "type": "go",
             "request": "launch",
-            "program": "${workspaceFolder}",
+            "program": "${workspaceFolder}/cmd/producer",
+            "preLaunchTask": "build_producer",
+            "env": {
+                "LOG_LEVEL": "debug",
+                "LOG_DIR": "./",
+            }
+        },
+        {
+            "name": "consumer",
+            "type": "go",
+            "request": "launch",
+            "program": "${workspaceFolder}/cmd/consumer",
+            "preLaunchTask": "build_consumer",
             "env": {
                 "LOG_LEVEL": "debug",
                 "LOG_DIR": "./",
