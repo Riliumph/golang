@@ -5,9 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "producer",
+            "name": "precompiled producer",
             "type": "go",
             "request": "launch",
+            "mode": "exec",
+            "program": "${workspaceFolder}/producer",
+            "preLaunchTask": "build_producer",
+            "env": {
+                "LOG_LEVEL": "debug",
+                "LOG_DIR": "./",
+            }
+        },
+        {
+            "name": "debug producer",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
             "program": "${workspaceFolder}/cmd/producer",
             "preLaunchTask": "build_producer",
             "env": {
@@ -16,9 +29,24 @@
             }
         },
         {
-            "name": "consumer",
+            "name": "precompiled consumer",
             "type": "go",
             "request": "launch",
+            // execの場合、バイナリファイルを指定
+            "mode": "exec",
+            "program": "${workspaceFolder}/consumer",
+            "preLaunchTask": "build_consumer",
+            "env": {
+                "LOG_LEVEL": "debug",
+                "LOG_DIR": "./",
+            }
+        },
+        {
+            "name": "debug consumer",
+            "type": "go",
+            "request": "launch",
+            // debugの場合、package mainのgoファイルがあるディレクトリを指定
+            "mode": "debug",
             "program": "${workspaceFolder}/cmd/consumer",
             "preLaunchTask": "build_consumer",
             "env": {
